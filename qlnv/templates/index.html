@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Quản lý nhân viên{% endblock %}</title>
+  </head>
+  <body>
+    <h1>Quản lý nhân viên</h1>
+    {% if employee.ma_nhan_vien %}
+      <form id="employeeForm" action="{% url 'update' employee.ma_nhan_vien %}" method="post">
+      {% else %}
+      <form id="employeeForm" action="{% url 'create' %}" method="post">
+      {% endif %}
+      {% csrf_token %}
+      <label for="employeeId">Mã nhân viên:</label>
+      <input type="text" id="employeeId" name="ma_nhan_vien" value={{employee.ma_nhan_vien}}  ><br />
+
+      <label for="employeeName">Họ tên nhân viên:</label>
+      <input type="text" id="employeeName" name="ho_ten_nhan_vien" value={{employee.ho_ten_nhan_vien}} ><br />
+
+      <label for="basicSalary">Lương cơ bản:</label>
+      <input type="number" id="basicSalary" name="luong_co_ban" value={{employee.luong_co_ban}}><br />
+
+      <label for="employeeType">Loại nhân viên:</label>
+      <select id="employeeType" name="loai_nhan_vien" value={{employee.loai_nhan_vien}}>
+        <option value="vanphong">Nhân viên văn phòng</option>
+        <option value="kinhdoanh">Nhân viên kinh doanh</option>
+      </select><br />
+
+      <label for="monthlySalary">Lương hàng tháng:</label>
+      <input
+        type="number"
+        id="monthlySalary"
+        name="luong_hang_thang"
+        value={{employee.luong_hang_thang}}
+      /><br />
+      <button type="submit">{% if employee.ma_nhan_vien%} Cập nhật {%else%}Thêm {%endif%}</button>
+    </form>
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>

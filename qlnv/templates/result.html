@@ -1,0 +1,33 @@
+{% extends "index.html" %} {% block content %}
+<h2>Danh sách nhân viên</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Số thứ tự</th>
+      <th>Mã nhân viên</th>
+      <th>Họ tên nhân viên</th>
+      <th>Loại nhân viên</th>
+      <th>Lương cơ bản</th>
+      <th>Lương hàng tháng</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody id="employeeTableBody">
+    {% for employee in employees %}
+    <tr data-id="{{ employee.id }}">
+      <td>{{ employee.id}}</td>
+      <td>{{ employee.ma_nhan_vien }}</td>
+      <td>{{ employee.ho_ten_nhan_vien }}</td>
+      <td>{{ employee.loai_nhan_vien }}</td>
+      <td>{{ employee.luong_co_ban }}</td>
+      <td>{{ employee.luong_hang_thang }}</td>
+      <td>
+        <a href="{% url 'getNhanVienInfo' employee.id %}"><button>Cập nhật</button></a>
+        <a href="{% url 'delete' employee.id %}"><button>Xoá</button></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'salaryCalculation' %}"><button>Tính lương Hàng tháng</button></a>
+{% endblock %}
